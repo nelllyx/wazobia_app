@@ -16,5 +16,4 @@ public class Passenger {
     private String nextOfKinName;
     private String nextOfKinPhone;
 
-
 }
