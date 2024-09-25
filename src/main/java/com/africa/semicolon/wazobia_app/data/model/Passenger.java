@@ -9,6 +9,7 @@ import lombok.Data;
 public class Passenger {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
     private String firstName;
     private String lastName;
@@ -18,6 +19,5 @@ public class Passenger {
     private String password;
     private String nextOfKinName;
     private String nextOfKinPhone;
-
 
 }
