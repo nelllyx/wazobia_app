@@ -1,6 +1,7 @@
 package com.africa.semicolon.wazobia_app.utils;
 
 import com.africa.semicolon.wazobia_app.data.model.Passenger;
+import com.africa.semicolon.wazobia_app.dtos.request.LoginPassengerRequest;
 import com.africa.semicolon.wazobia_app.dtos.request.RegistrationRequest;
 
 public class Mapper {

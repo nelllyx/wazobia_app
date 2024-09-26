@@ -4,6 +4,7 @@ import com.africa.semicolon.wazobia_app.data.model.Passenger;
 import com.africa.semicolon.wazobia_app.data.repository.PassengerRepository;
 import com.africa.semicolon.wazobia_app.dtos.request.RegistrationRequest;
 import com.africa.semicolon.wazobia_app.dtos.response.RegistrationResponse;
+import org.springframework.stereotype.Service;
 import com.africa.semicolon.wazobia_app.exceptions.WazobiaException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,4 +29,6 @@ public class PassengerServiceImpl implements PassengerService {
         response.setMessage("You have successfully added passenger");
         return response;
     }
+
+  
 }
