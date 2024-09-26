@@ -15,5 +15,6 @@ public class Mapper {
         passenger.setNextOfKinPhone(request.getNextOfKinPhone());
 
 
+        return passenger;
     }
 }
