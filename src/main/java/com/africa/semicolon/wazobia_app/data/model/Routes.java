@@ -1,24 +1,26 @@
 package com.africa.semicolon.wazobia_app.data.model;
 
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 @Getter
 @Setter
-public class Driver {
+public class Routes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String driverName;
-    private String email;
-    private String password;
-    private String phoneNumber;
-    private String address;
-    private String licenseNumber;
+    private Long routeId;
+    private Long passengerId;
+    private String startingPoint;
+    private LocalTime depatureTime;
+    private String endingPoint;
+    private LocalDate departureDate;
+
 }
