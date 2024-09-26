@@ -8,17 +8,25 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Entity
-@Getter
 @Setter
-public class Driver {
+@Getter
+public class Booking {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String driverName;
-    private String email;
-    private String password;
-    private String phoneNumber;
-    private String address;
-    private String licenseNumber;
+    private Long bookingId;
+    private Long passengerId;
+    private Long tripId;
+    private LocalDate bookingDate;
+    private String bookingStatus;
+    private String paymentMethod;
+    private String paymentStatus;
+    private double totalCost;
+
 }
+
+
+

@@ -1,19 +1,26 @@
 package com.africa.semicolon.wazobia_app.data.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 @Entity
 @Getter
 @Setter
 public class Trip {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
-    private String RouteId;
+    private Long RouteId;
     private String VehiclesId;
-    private LocalDate departureTime;
+    private LocalTime departureTime;
     private LocalDate arrivalTime;
 }
