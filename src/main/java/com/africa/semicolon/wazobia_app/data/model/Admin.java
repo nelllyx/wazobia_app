@@ -9,9 +9,8 @@ import lombok.Setter;
 @Entity
 @Table(name = "Admin")
 public class Admin {
-
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName;
     private String lastName;
