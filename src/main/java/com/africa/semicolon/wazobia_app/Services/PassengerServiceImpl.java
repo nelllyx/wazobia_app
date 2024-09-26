@@ -25,4 +25,6 @@ public class PassengerServiceImpl implements PassengerService {
         response.setMessage("You have successfully added passenger");
         return response;
     }
+
+  
 }
