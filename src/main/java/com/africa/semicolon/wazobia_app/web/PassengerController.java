@@ -1,29 +1,28 @@
 package com.africa.semicolon.wazobia_app.web;
-
-import com.africa.semicolon.wazobia_app.Services.PassengerService;
-import com.africa.semicolon.wazobia_app.dtos.request.LoginPassengerRequest;
-import com.africa.semicolon.wazobia_app.dtos.response.LoginResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import com.africa.semicolon.wazobia_app.data.model.Passenger;
+import com.africa.semicolon.wazobia_app.dtos.request.RegistrationRequest;
+import com.africa.semicolon.wazobia_app.dtos.response.RegistrationResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/vi/passenger")
-@CrossOrigin
-@Controller
+@RequestMapping("/passenger")
 public class PassengerController {
-    @Autowired
-    private PassengerService passengerService;
-    @GetMapping("/login-passenger")
-    public ResponseEntity<?> loginPassenger(@RequestBody LoginPassengerRequest request) {
+    private final PassengerService passengerService;
+
+    @PostMapping("sign-up")
+    public ResponseEntity<?> userRegistration(@RequestBody RegistrationRequest request) {
         try{
-            LoginResponse response = passengerService.loginPassenger(request);
-            return new ResponseEntity<>(response, HttpStatus.CREATED);
-        }
-        catch(Exception exception){
-            return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+            RegistrationResponse response = passengerService.addPassenger(request);
+            return ResponseEntity.ok(response);
+        }catch (Exception message){
+            return ResponseEntity.badRequest().body(message);
         }
     }
+
 }

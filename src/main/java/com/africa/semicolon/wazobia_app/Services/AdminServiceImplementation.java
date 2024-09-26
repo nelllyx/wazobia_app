@@ -27,6 +27,7 @@ public class AdminServiceImplementation implements AdminService {
         admin.setLastName(registerAdminRequest.getLastName());
         admin.setEmail(registerAdminRequest.getEmail());
         admin.setPassword(registerAdminRequest.getPassword());
+        admin.setPhoneNumber(registerAdminRequest.getPhoneNumber());
         adminRepository.save(admin);
 
         AdminRegisterResponse response = new AdminRegisterResponse();
@@ -63,10 +64,7 @@ public class AdminServiceImplementation implements AdminService {
         if (registerAdmin.getLastName() == null || registerAdmin.getLastName().trim().isEmpty()) {
             throw new WazobiaException("Last name cannot be empty. Please input last name.");
         }
-       if(registerAdmin.getPassword().length()<6){
-           throw new WazobiaException("Password must be at least 6 characters long");
-       }
-
+       
     }
 
     private void validateEmail(String email) {

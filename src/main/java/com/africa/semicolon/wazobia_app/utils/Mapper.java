@@ -12,15 +12,10 @@ public class Mapper {
         passenger.setEmail(request.getEmail());
         passenger.setPhone(request.getPhone());
         passenger.setPassword(request.getPassword());
+        passenger.setGender(request.getGender());
         passenger.setNextOfKinName(request.getNextOfKinName());
         passenger.setNextOfKinPhone(request.getNextOfKinPhone());
 
-        return passenger;
-    }
-    public static Passenger map(LoginPassengerRequest request) {
-        Passenger passenger = new Passenger();
-        passenger.setEmail(request.getEmail());
-        passenger.setPassword(request.getPassword());
         return passenger;
     }
 }
