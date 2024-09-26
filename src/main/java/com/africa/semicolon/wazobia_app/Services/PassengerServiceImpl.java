@@ -8,23 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import static com.africa.semicolon.wazobia_app.utils.Mapper.mapPassenger;
-
-
 @Service
+@RequiredArgsConstructor
 public class PassengerServiceImpl implements PassengerService {
 
-    @Autowired
-    PassengerRepository passengerRepository;
-
+    private final PassengerRepository passengerRepository;
     @Override
     public RegistrationResponse addPassenger(RegistrationRequest register) {
-        Passenger passenger = mapPassenger(register);
-        passengerRepository.save(passenger);
-
+        Passenger request = map(register);
+        if(passengerRepository.existsByFirstNameAndLastName(request.getFirstName(), request.getLastName())) {
+            throw new WazobiaException("User already exists");
+        }else {
+            passengerRepository.save(request);
+        }
         RegistrationResponse response = new RegistrationResponse();
-
         response.setMessage("You have successfully added passenger");
-        response.setUserId(passenger.getId());
         return response;
     }
 }

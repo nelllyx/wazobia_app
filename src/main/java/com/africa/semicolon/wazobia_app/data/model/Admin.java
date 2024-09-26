@@ -1,15 +1,13 @@
 package com.africa.semicolon.wazobia_app.data.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@Table(name = "Admin")
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,4 +16,5 @@ public class Admin {
     private String lastName;
     private String email;
     private String password;
+    private String phoneNumber;
 }

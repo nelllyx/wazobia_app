@@ -9,12 +9,12 @@ import lombok.Data;
 public class Passenger {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
     private String firstName;
     private String lastName;
     private String email;
     private String phone;
+    private String gender;
     private String password;
     private String nextOfKinName;
     private String nextOfKinPhone;

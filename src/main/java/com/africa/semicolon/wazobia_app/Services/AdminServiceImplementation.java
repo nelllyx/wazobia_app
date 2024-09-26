@@ -17,17 +17,17 @@ public class AdminServiceImplementation implements AdminService {
 
     @Override
     public AdminRegisterResponse register_As_An_Admin(RegisterAdminRequest registerAdminRequest) {
-        try {
+
             validateRegisterAdmin(registerAdminRequest);
-        } catch (WazobiaException e) {
-            System.out.println("Error occurred: " + e.getMessage());
-        }
+
+        validateAdmin(registerAdminRequest);
 
         Admin admin = new Admin();
         admin.setFirstName(registerAdminRequest.getFirstName());
         admin.setLastName(registerAdminRequest.getLastName());
         admin.setEmail(registerAdminRequest.getEmail());
         admin.setPassword(registerAdminRequest.getPassword());
+        admin.setPhoneNumber(registerAdminRequest.getPhoneNumber());
         adminRepository.save(admin);
 
         AdminRegisterResponse response = new AdminRegisterResponse();
@@ -55,6 +55,46 @@ public class AdminServiceImplementation implements AdminService {
            throw new WazobiaException("Email is not valid pls input the correct email with @ annotation.");
 
        }
+       if(registerAdmin.getPhoneNumber() == null || registerAdmin.getPhoneNumber().trim().isEmpty()) {
+           throw new WazobiaException("Phone number cannot be empty. Please input phone number.");
+       }
+       if(!registerAdmin.getPhoneNumber().matches("//d+")){
+           throw new WazobiaException("phone number must be a positive number.");
+       }
+       if(!registerAdmin.getPhoneNumber().matches("^\\d{11}$") ){
+           throw new WazobiaException("phone number must be exactly 11 digits long");
+       }
+    }
+    private void validateAdmin(RegisterAdminRequest registerAdmin) {
+        for(Admin admin: adminRepository.findAll()){
+            if(admin.getEmail().equals(registerAdmin.getEmail())){
+                throw new WazobiaException("Email already in use. Please choose another one.");
+
+            }
+        }
+        for(Admin admin: adminRepository.findAll()){
+            if(admin.getPassword().equals(registerAdmin.getPassword())){
+                throw new WazobiaException("Password already in use. Please choose another one.");
+            }
+        }
+        for(Admin admin: adminRepository.findAll()){
+            if(admin.getPhoneNumber().equals(registerAdmin.getPhoneNumber())){
+                throw new WazobiaException("Phone number already exist. Please choose another one.");
+            }
+
+        }
+        for(Admin admin: adminRepository.findAll()){
+            if(admin.getFirstName().equals(registerAdmin.getFirstName())){
+                throw new WazobiaException("First name already exist. Please choose another one.");
+            }
+
+        }
+        for(Admin admin: adminRepository.findAll()){
+            if(admin.getLastName().equals(registerAdmin.getLastName())){
+                throw new WazobiaException("Last name already exist. Please choose another one.");
+            }
+        }
+
     }
 }
 

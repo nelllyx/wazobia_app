@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PassengerRepository extends JpaRepository<Passenger, Long> {
     boolean existsByFirstNameAndLastName(String firstName, String lastName);
+    Passenger findPassengerById(Long id);
+    //Passenger findByFirstNameAndLastName(String firstName, String lastName);
 }
