@@ -3,6 +3,8 @@ package com.africa.semicolon.wazobia_app.data.repository;
 import com.africa.semicolon.wazobia_app.data.model.Passenger;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PassengerRepository extends JpaRepository<Passenger, Integer> {
+public interface PassengerRepository extends JpaRepository<Passenger, Long> {
     boolean existsByFirstNameAndLastName(String firstName, String lastName);
+    Passenger findPassengerById(Long id);
+    //Passenger findByFirstNameAndLastName(String firstName, String lastName);
 }
