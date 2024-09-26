@@ -14,7 +14,7 @@ public class Passenger {
     private String lastName;
     private String email;
     private String phone;
-    private String address;
+    private String gender;
     private String password;
     private String nextOfKinName;
     private String nextOfKinPhone;

@@ -11,9 +11,9 @@ public class Mapper {
         passenger.setEmail(request.getEmail());
         passenger.setPhone(request.getPhone());
         passenger.setPassword(request.getPassword());
+        passenger.setGender(request.getGender());
         passenger.setNextOfKinName(request.getNextOfKinName());
         passenger.setNextOfKinPhone(request.getNextOfKinPhone());
-
 
         return passenger;
     }
