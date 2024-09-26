@@ -1,6 +1,7 @@
 package com.africa.semicolon.wazobia_app.utils;
 
 import com.africa.semicolon.wazobia_app.data.model.Passenger;
+import com.africa.semicolon.wazobia_app.dtos.request.LoginPassengerRequest;
 import com.africa.semicolon.wazobia_app.dtos.request.RegistrationRequest;
 
 public class Mapper {
@@ -14,6 +15,12 @@ public class Mapper {
         passenger.setNextOfKinName(request.getNextOfKinName());
         passenger.setNextOfKinPhone(request.getNextOfKinPhone());
 
-
+        return passenger;
+    }
+    public static Passenger map(LoginPassengerRequest request) {
+        Passenger passenger = new Passenger();
+        passenger.setEmail(request.getEmail());
+        passenger.setPassword(request.getPassword());
+        return passenger;
     }
 }

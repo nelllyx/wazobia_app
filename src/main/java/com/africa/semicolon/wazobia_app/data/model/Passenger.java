@@ -1,4 +1,8 @@
 package com.africa.semicolon.wazobia_app.data.model;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
 @Data
 @Entity
 @Table(name = "passenger")
