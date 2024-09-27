@@ -2,11 +2,12 @@ package com.africa.semicolon.wazobia_app.Services;
 
 import com.africa.semicolon.wazobia_app.data.model.Passenger;
 import com.africa.semicolon.wazobia_app.data.repository.PassengerRepository;
+import com.africa.semicolon.wazobia_app.dtos.request.LoginPassengerRequest;
 import com.africa.semicolon.wazobia_app.dtos.request.RegistrationRequest;
+import com.africa.semicolon.wazobia_app.dtos.response.LoginResponse;
 import com.africa.semicolon.wazobia_app.dtos.response.RegistrationResponse;
 import com.africa.semicolon.wazobia_app.exceptions.WazobiaException;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.stereotype.Service;
 
 import static com.africa.semicolon.wazobia_app.utils.Mapper.mapPassenger;
@@ -18,6 +19,7 @@ public class PassengerServiceImpl implements PassengerService {
     @Override
     public RegistrationResponse addPassenger(RegistrationRequest register) {
         Passenger request = mapPassenger(register);
+
         if(passengerRepository.existsByEmail(request.getEmail())|| passengerRepository.existsByPhone(request.getPhone())) {
             throw new WazobiaException("User already exists");
         }else {
@@ -27,6 +29,7 @@ public class PassengerServiceImpl implements PassengerService {
         response.setMessage("You have successfully added passenger");
         return response;
     }
+
 
 
 
