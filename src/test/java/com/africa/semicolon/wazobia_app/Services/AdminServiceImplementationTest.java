@@ -1,6 +1,5 @@
 package com.africa.semicolon.wazobia_app.Services;
 
-import com.africa.semicolon.wazobia_app.data.model.Admin;
 import com.africa.semicolon.wazobia_app.data.repository.AdminRepository;
 import com.africa.semicolon.wazobia_app.dtos.request.RegisterAdminRequest;
 import com.africa.semicolon.wazobia_app.dtos.response.AdminRegisterResponse;
