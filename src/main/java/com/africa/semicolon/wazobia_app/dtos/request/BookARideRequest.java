@@ -13,9 +13,9 @@ import java.time.LocalTime;
 
 public class BookARideRequest {
     private Long passengerId;
-    private String destinationAdress;
-    private String depatureAddress;
-    private LocalTime depatureTime;
+    private String destinationAddress;
+    private String departureAddress;
+    private LocalTime departureTime;
     private LocalDate departureDate;
 
 }

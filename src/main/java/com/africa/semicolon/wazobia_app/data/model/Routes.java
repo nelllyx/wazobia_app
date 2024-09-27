@@ -1,12 +1,14 @@
 package com.africa.semicolon.wazobia_app.data.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+
+
+import jakarta.persistence.*;
+
+
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 
 import java.time.LocalDate;
@@ -15,14 +17,17 @@ import java.time.LocalTime;
 @Entity
 @Getter
 @Setter
+
+@Table(name = "routes")
 public class Routes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long routeId;
-    private Long passengerId;
-    private String startingPoint;
-    private LocalTime depatureTime;
-    private String endingPoint;
+    private String departure;
+    private String destination;
+    private LocalTime departureTime;
     private LocalDate departureDate;
+    private Long passengerId;
+
 
 }

@@ -6,6 +6,6 @@ import lombok.Setter;
 @Setter
 @Getter
 public class RegistrationResponse {
-    private Long userId;
+   // private Long userId;
     private String message;
 }
