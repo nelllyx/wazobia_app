@@ -21,9 +21,9 @@ public class Mapper {
   
     public static Routes mapRoutes(BookARideRequest request) {
         Routes route = new Routes();
-        route.setStartingPoint(request.getDepatureAddress());
-        route.setEndingPoint(request.getDestinationAdress());
-        route.setDepatureTime(request.getDepatureTime());
+        route.setDeparture(request.getDepartureAddress());
+        route.setDestination(request.getDestinationAddress());
+        route.setDepartureTime(request.getDepartureTime());
         route.setPassengerId(request.getPassengerId());
         route.setDepartureDate(request.getDepartureDate());
         return route;

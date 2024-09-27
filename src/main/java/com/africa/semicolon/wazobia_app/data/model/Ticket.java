@@ -1,22 +1,23 @@
 package com.africa.semicolon.wazobia_app.data.model;
 
-import jakarta.persistence.*;
-import lombok.Data;
 
-@Data
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 @Entity
-@Table(name = "passenger")
-public class Passenger {
+@Table(name = "ticket")
+public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName;
     private String lastName;
+    private String gender;
     private String email;
-    private String phone;
-    private String gender ;
-    private String password;
-    private String nextOfKinName;
-    private String nextOfKinPhone;
+    @ManyToOne
+    private Routes routes;
 
 }
