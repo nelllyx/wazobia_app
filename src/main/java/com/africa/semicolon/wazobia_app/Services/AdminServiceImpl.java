@@ -1,20 +1,23 @@
 package com.africa.semicolon.wazobia_app.Services;
 
 import com.africa.semicolon.wazobia_app.data.model.Admin;
+import com.africa.semicolon.wazobia_app.data.model.Vehicles;
 import com.africa.semicolon.wazobia_app.data.repository.AdminRepository;
+import com.africa.semicolon.wazobia_app.data.repository.VehiclesRepository;
 import com.africa.semicolon.wazobia_app.dtos.request.LoginAdminRequest;
 import com.africa.semicolon.wazobia_app.dtos.request.RegisterAdminRequest;
 import com.africa.semicolon.wazobia_app.dtos.response.AdminRegisterResponse;
 import com.africa.semicolon.wazobia_app.dtos.response.LoginAdminResponse;
 import com.africa.semicolon.wazobia_app.exceptions.WazobiaException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AdminServiceImplementation implements AdminService {
-    @Autowired
-    private  AdminRepository adminRepository;
+@RequiredArgsConstructor
 
+public class AdminServiceImpl implements AdminService {
+
+    private final AdminRepository adminRepository;
 
 
     @Override
@@ -46,6 +49,7 @@ public class AdminServiceImplementation implements AdminService {
       response.setMessage("Admin logged in successfully");
       return response;
     }
+
 
 
     private void validateRegisterAdmin(RegisterAdminRequest registerAdmin, String email) {

@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
@@ -22,5 +21,5 @@ public class Trip {
     private Long RouteId;
     private String VehiclesId;
     private LocalTime departureTime;
-    private LocalDate arrivalTime;
+    private String driverId;
 }

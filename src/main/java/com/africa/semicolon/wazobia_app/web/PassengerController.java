@@ -1,5 +1,5 @@
 package com.africa.semicolon.wazobia_app.web;
-import com.africa.semicolon.wazobia_app.data.model.Passenger;
+import com.africa.semicolon.wazobia_app.Services.PassengerService;
 import com.africa.semicolon.wazobia_app.dtos.request.RegistrationRequest;
 import com.africa.semicolon.wazobia_app.dtos.response.RegistrationResponse;
 import lombok.RequiredArgsConstructor;
