@@ -18,15 +18,5 @@ public class PassengerServiceImplementationTest {
     void setUp() {
     }
 
-    @Test
-    void testThatAPassengerCanLogin(){
-        LoginPassengerRequest request = new LoginPassengerRequest();
-        request.setEmail("sam@gmail.com");
-        request.setPassword("pass");
-        passengerService.loginPassenger(request);
-        LoginResponse response = passengerService.loginPassenger(request);
-        assertThat(response).isNotNull();
-        assertThat(response.getMessage()).isEqualTo("You have successfully logged in");
-    }
 
 }

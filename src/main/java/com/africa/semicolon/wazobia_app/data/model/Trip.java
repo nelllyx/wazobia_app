@@ -19,7 +19,7 @@ public class Trip {
 
     private Long id;
     private Long RouteId;
-    private String VehiclesId;
+    private Long VehiclesId;
     private LocalTime departureTime;
     private String driverId;
 }

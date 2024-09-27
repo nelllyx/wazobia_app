@@ -2,7 +2,7 @@ package com.africa.semicolon.wazobia_app.Services;
 
 import com.africa.semicolon.wazobia_app.data.repository.PassengerRepository;
 import com.africa.semicolon.wazobia_app.dtos.request.RegistrationRequest;
-import com.africa.semicolon.wazobia_app.exceptions.WazobiaException;
+import com.africa.semicolon.wazobia_app.exceptions.EmailExistsException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +23,7 @@ class PassengerServiceImplTest {
         RegistrationRequest request = new RegistrationRequest();
         request.setFirstName("firstName");
         request.setLastName("lastName");
-        request.setEmail("email@email.com");
+        request.setEmail("fareedtijani2810@gmail.com");
         request.setPassword("password");
         request.setGender("male");
         request.setPhone("090");
@@ -31,7 +31,7 @@ class PassengerServiceImplTest {
         request.setNextOfKinPhone("232");
         //request.setUserId(1L);
         passengerService.addPassenger(request);
-        assertThrows(WazobiaException.class, ()-> passengerService.addPassenger(request));
+        assertThrows(EmailExistsException.class, ()-> passengerService.addPassenger(request));
 
     }
 

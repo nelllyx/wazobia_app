@@ -1,7 +1,8 @@
 package com.africa.semicolon.wazobia_app.utils;
 
-import com.africa.semicolon.wazobia_app.data.model.Passenger;
-import com.africa.semicolon.wazobia_app.data.model.Routes;
+import com.africa.semicolon.wazobia_app.data.model.*;
+import com.africa.semicolon.wazobia_app.dtos.request.AddDriverRequest;
+import com.africa.semicolon.wazobia_app.dtos.request.AddVehicleRequest;
 import com.africa.semicolon.wazobia_app.dtos.request.BookARideRequest;
 import com.africa.semicolon.wazobia_app.dtos.request.RegistrationRequest;
 
@@ -21,11 +22,39 @@ public class Mapper {
   
     public static Routes mapRoutes(BookARideRequest request) {
         Routes route = new Routes();
+<<<<<<< HEAD
+        route.setDeparture(request.getDepatureAddress());
+        route.setDestination(request.getDestinationAdress());
+        route.setDepartureTime(request.getDepatureTime());
+=======
         route.setDeparture(request.getDepartureAddress());
         route.setDestination(request.getDestinationAddress());
         route.setDepartureTime(request.getDepartureTime());
+>>>>>>> 119def295519f485f24431dc63559987402a1547
         route.setPassengerId(request.getPassengerId());
         route.setDepartureDate(request.getDepartureDate());
         return route;
     }
+
+    public static Driver mapDriver(AddDriverRequest request){
+        Driver driver = new Driver();
+        driver.setDriverName(request.getUserName());
+        driver.setEmail(request.getEmail());
+        driver.setPhoneNumber(request.getPhoneNumber());
+        driver.setAddress(request.getAddress());
+        driver.setLicenseNumber(request.getLicenseNumber());
+        return driver;
+
+    }
+
+    public static Vehicles mapVehicle(AddVehicleRequest request){
+        Vehicles vehicle = new Vehicles();
+        vehicle.setMake(request.getMake());
+        vehicle.setModel(request.getModel());
+        vehicle.setNumberOfSits(request.getNumberOfSeats());
+        vehicle.setPlateNumber(request.getPlateNumber());
+        return vehicle;
+    }
+
+
 }
