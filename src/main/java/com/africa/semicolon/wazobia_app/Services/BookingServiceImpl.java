@@ -7,6 +7,7 @@ import com.africa.semicolon.wazobia_app.data.repository.RoutesRepository;
 import com.africa.semicolon.wazobia_app.data.repository.TripRepository;
 import com.africa.semicolon.wazobia_app.dtos.request.BookARideRequest;
 import com.africa.semicolon.wazobia_app.dtos.response.BookARideResponse;
+<<<<<<< HEAD
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,26 @@ import static com.africa.semicolon.wazobia_app.utils.Mapper.mapRoutes;
 
 @Service @RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
+=======
+
+import lombok.AllArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
+
+
+import static com.africa.semicolon.wazobia_app.utils.Mapper.mapRoutes;
+
+@Service
+
+@AllArgsConstructor
+
+public class BookingServiceImpl implements BookingService {
+
+    @Lazy
+   private final RoutesRepository routesRepository;
+>>>>>>> 119def295519f485f24431dc63559987402a1547
 
     @Lazy
     private final RoutesRepository routesRepository;
@@ -36,6 +57,7 @@ public class BookingServiceImpl implements BookingService {
         Trip trip = new Trip();
         trip.setRouteId(route.getRouteId());
         trip.setDepartureTime(route.getDepartureTime());
+<<<<<<< HEAD
         trip.setVehiclesId(vehicleId);
         tripRepository.save(trip);
         String date;
@@ -48,6 +70,9 @@ public class BookingServiceImpl implements BookingService {
 //                Your trip from %s to %s is confirmed for %s at %
 //                """,route.getStartingPoint(),route.getEndingPoint(),route.getDepartureDate(),);
         response.setBookingInfo("hhh");
+=======
+//        trip.setVehiclesId();
+>>>>>>> 119def295519f485f24431dc63559987402a1547
 
 
 
