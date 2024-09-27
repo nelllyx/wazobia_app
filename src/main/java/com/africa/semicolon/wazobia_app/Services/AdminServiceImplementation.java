@@ -1,20 +1,33 @@
 package com.africa.semicolon.wazobia_app.Services;
 
 import com.africa.semicolon.wazobia_app.data.model.Admin;
+import com.africa.semicolon.wazobia_app.data.model.Driver;
+import com.africa.semicolon.wazobia_app.data.model.Vehicles;
 import com.africa.semicolon.wazobia_app.data.repository.AdminRepository;
-import com.africa.semicolon.wazobia_app.dtos.request.LoginAdminRequest;
-import com.africa.semicolon.wazobia_app.dtos.request.RegisterAdminRequest;
-import com.africa.semicolon.wazobia_app.dtos.response.AdminRegisterResponse;
-import com.africa.semicolon.wazobia_app.dtos.response.LoginAdminResponse;
-import com.africa.semicolon.wazobia_app.exceptions.WazobiaException;
+import com.africa.semicolon.wazobia_app.data.repository.DriverRepository;
+import com.africa.semicolon.wazobia_app.data.repository.VehiclesRepository;
+import com.africa.semicolon.wazobia_app.dtos.request.*;
+import com.africa.semicolon.wazobia_app.dtos.response.*;
+import com.africa.semicolon.wazobia_app.exceptions.VehicleExistsException;
+import com.africa.semicolon.wazobia_app.exceptions.EmailExistsException;
+import com.africa.semicolon.wazobia_app.exceptions.WrongEmailFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+import static com.africa.semicolon.wazobia_app.utils.Mapper.mapDriver;
+import static com.africa.semicolon.wazobia_app.utils.Mapper.mapVehicle;
 
 @Service
 public class AdminServiceImplementation implements AdminService {
     @Autowired
     private  AdminRepository adminRepository;
 
+    @Autowired
+    private  DriverRepository driverRepository;
+    @Autowired
+    private VehiclesRepository vehiclesRepository;
 
 
     @Override
@@ -47,35 +60,100 @@ public class AdminServiceImplementation implements AdminService {
       return response;
     }
 
+    @Override
+    public AddDriverResponse addDriver(AddDriverRequest request) {
+        validateDriverEmail(request.getEmail());
+        Driver driver = mapDriver(request);
+        driverRepository.save(driver);
+        AddDriverResponse response = new AddDriverResponse();
+        response.setMessage("Driver added successfully");
+        return response;
+    }
+
+    private void validateDriverEmail(String email) {
+        List<Driver> drivers = driverRepository.findAll();
+        for(Driver driver : drivers) {
+            if(driver.getEmail().equals(email)) {
+                throw new EmailExistsException("Driver already exists");
+            }
+        }
+    }
+
+    @Override
+    public AddVehicleResponse addVehicle(AddVehicleRequest request) {
+        validateVehiclePlateNumber();
+        Vehicles vehicle = mapVehicle(request);
+        vehiclesRepository.save(vehicle);
+        AddVehicleResponse response = new AddVehicleResponse();
+        response.setMessage("Vehicle added successfully");
+        return response;
+    }
+
+    @Override
+    public MapDriverToVehicleResponse connectVehicleToDriver(MapDriverToVehicleRequest request) {
+        List<Driver> drivers = driverRepository.findAll();
+        Driver driver1 = null;
+        Vehicles vehicle1 = null;
+        for(Driver driver : drivers) {
+            if (driver.getId().equals(request.getDriverId())){
+                driver1 = driver;
+            }
+        }
+
+
+        List<Vehicles> vehicles = vehiclesRepository.findAll();
+        for(Vehicles vehicle : vehicles) {
+            if(vehicle.getPlateNumber().equals(request.getPlateNumber())){
+                vehicle1 = vehicle;
+            }else throw new VehicleExistsException("Vehicle does not exists");
+        }
+        driver1.setVehicleId(vehicle1.getId());
+        driverRepository.save(driver1);
+        vehicle1.setDriverId(driver1.getId());
+        vehiclesRepository.save(vehicle1);
+
+        MapDriverToVehicleResponse response = new MapDriverToVehicleResponse();
+        response.setMessage("Driver connected to vehicle successfully");
+        return response;
+    }
+
+    private void validateVehiclePlateNumber() {
+        List<Vehicles> vehicles = vehiclesRepository.findAll();
+        for(Vehicles vehicle : vehicles) {
+            if(vehicle.getPlateNumber().equals(vehicle.getPlateNumber())) {
+                throw new VehicleExistsException("Vehicle already exists");
+            }
+        }
+    }
 
     private void validateRegisterAdmin(RegisterAdminRequest registerAdmin, String email) {
         for (Admin admin : adminRepository.findAll()) {
             if (admin.getEmail().equals(email)) {
-                throw new WazobiaException("Admin already exists");
+                throw new EmailExistsException("Admin already exists");
             }
         }
         validateEmail(email);
         if (registerAdmin.getFirstName() == null || registerAdmin.getFirstName().trim().isEmpty()) {
-            throw new WazobiaException("First name cannot be empty. Please input first name.");
+            throw new WrongEmailFormatException("First name cannot be empty. Please input first name.");
         }
         if (registerAdmin.getPassword() == null || registerAdmin.getPassword().trim().isEmpty()) {
-            throw new WazobiaException("Password cannot be empty. Please input password.");
+            throw new EmailExistsException("Password cannot be empty. Please input password.");
         }
         if (registerAdmin.getLastName() == null || registerAdmin.getLastName().trim().isEmpty()) {
-            throw new WazobiaException("Last name cannot be empty. Please input last name.");
+            throw new EmailExistsException("Last name cannot be empty. Please input last name.");
         }
        
     }
 
     private void validateEmail(String email) {
         if(!email.contains("@")){
-            throw new WazobiaException("Email address must contain @");
+            throw new EmailExistsException("Email address must contain @");
         }
         if(!email.contains(".")){
-            throw new WazobiaException("Email address must contain .  ");
+            throw new EmailExistsException("Email address must contain .  ");
         }
         if (email.contains(" ")) {
-            throw new WazobiaException("Email address must not be blank.");
+            throw new EmailExistsException("Email address must not be blank.");
         }
 
     }

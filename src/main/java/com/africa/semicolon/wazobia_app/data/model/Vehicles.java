@@ -14,6 +14,7 @@ public class Vehicles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long driverId;
     private String plateNumber;
     private String make;
     private String model;
