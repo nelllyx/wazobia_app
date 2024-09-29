@@ -34,7 +34,7 @@ public class PassengerController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> userRegistration(@RequestBody LoginPassengerRequest request){
+    public ResponseEntity<?> loginPassenger(@RequestBody LoginPassengerRequest request){
         try{
             LoginPassengerResponse response = passengerService.loginPassenger(request);
             return new ResponseEntity<>(new ApiResponse(true,response), CREATED);

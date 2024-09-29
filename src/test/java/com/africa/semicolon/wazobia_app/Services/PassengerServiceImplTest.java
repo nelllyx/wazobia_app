@@ -103,7 +103,7 @@ class PassengerServiceImplTest {
         LoginPassengerRequest request1 = new LoginPassengerRequest();
         request.setEmail("fareedtijani2810gmail.com");
         request1.setPassword("password");
-        LoginPassengerResponse response = passengerService.loginPassenger(request);
+        LoginPassengerResponse response = passengerService.loginPassenger(request1);
         assertThat(response).isNotNull();
         assertThat(response.getToken()).isEqualTo("rfbaaaaaaa");
 
@@ -116,7 +116,7 @@ class PassengerServiceImplTest {
         LoginPassengerRequest request1 = new LoginPassengerRequest();
         request.setEmail("fareedtijani2810gmail.com");
         request1.setPassword("password");
-        LoginPassengerResponse response = passengerService.loginPassenger(request);
+        LoginPassengerResponse response = passengerService.loginPassenger(request1);
         BookARideRequest request2 = new BookARideRequest();
         request2.setPassengerId(response.getToken());
         request2.setDepartureTime(LocalTime.of(6, 30));

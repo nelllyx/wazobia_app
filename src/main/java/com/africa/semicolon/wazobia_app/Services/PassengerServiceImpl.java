@@ -52,17 +52,18 @@ public class PassengerServiceImpl implements PassengerService {
     public LoginPassengerResponse loginPassenger(LoginPassengerRequest request) {
         List<Passenger> passengers = passengerRepository.findAll();
         Long passengerId = 0l;
+        LoginPassengerResponse response1 = null;
         for (Passenger passenger : passengers) {
-            if (!passenger.getEmail().equals(request.getEmail()) && !passenger.getPassword().equals(request.getPassword())) {
-                passengerId = passenger.getId();
-                throw new EmailExistsException("invalid username or password");
+            if (passenger.getEmail().equals(request.getEmail()) && passenger.getPassword().equals(request.getPassword())) {
+                LoginPassengerResponse response = new LoginPassengerResponse();
+                response.setMessage("Login successful");
+                String token = hash(passengerId);
+                response.setToken(token);
+                response1 = response;
             }
         }
-        LoginPassengerResponse response = new LoginPassengerResponse();
-        response.setMessage("Login successful");
-        String token = hash(passengerId);
-        response.setToken(token);
-        return response;
+
+        return response1;
     }
 
     @Override
