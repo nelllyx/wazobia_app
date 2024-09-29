@@ -1,6 +1,7 @@
 package com.africa.semicolon.wazobia_app.Services;
 
 import com.africa.semicolon.wazobia_app.data.repository.AdminRepository;
+import com.africa.semicolon.wazobia_app.data.repository.DriverRepository;
 import com.africa.semicolon.wazobia_app.dtos.request.AddDriverRequest;
 import com.africa.semicolon.wazobia_app.dtos.request.AddVehicleRequest;
 import com.africa.semicolon.wazobia_app.dtos.request.MapDriverToVehicleRequest;
@@ -24,12 +25,15 @@ class AdminServiceImplementationTest {
     private  AdminRepository adminRepository;
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private DriverRepository driverRepository;
 
-    @BeforeEach
-    void setUp() {
-        adminRepository.deleteAll();
-
-    }
+//    @BeforeEach
+//    void setUp() {
+//        adminRepository.deleteAll();
+//        driverRepository.deleteAll();
+//
+//    }
 
 //    @Test
 //   public void register_As_An_Admin() {
@@ -84,11 +88,11 @@ class AdminServiceImplementationTest {
     @Test
     public void testThatAdminCanAddADriverToDatabase() {
         AddDriverRequest request = new AddDriverRequest();
-        request.setEmail("werey@gmails.coms");
-        request.setAddress("Abule egbas");
-        request.setPhoneNumber("0904532513");
-        request.setLicenseNumber("1223345333445356989");
-        request.setUserName("Buhari Obiss");
+        request.setEmail("bellobodunrin2277@gmail.com");
+        request.setAddress("8,ikoga rd, Badagry, lagos");
+        request.setPhoneNumber("09033778829");
+        request.setLicenseNumber("D3Y3YE3Y4Y3EYUV7");
+        request.setUserName("Bello Bodunrin");
         AddDriverResponse response = adminService.addDriver(request);
         assertThat(response.getMessage()).isEqualTo("Driver added successfully");
 
@@ -98,9 +102,9 @@ class AdminServiceImplementationTest {
     @Test
     public void testThatAdminCanAddVehicleToDatabase() {
         AddVehicleRequest request = new AddVehicleRequest();
-        request.setPlateNumber("OSU54-35");
-        request.setModel("BMW");
-        request.setMake("Toyota");
+        request.setPlateNumber("SMK-282-GD");
+        request.setModel("2012");
+        request.setMake("Mazda");
         request.setNumberOfSeats(16);
         AddVehicleResponse addVehicleResponse = adminService.addVehicle(request);
         assertThat(addVehicleResponse.getMessage()).isEqualTo("Vehicle added successfully");
@@ -109,8 +113,8 @@ class AdminServiceImplementationTest {
     @Test
     public void testThatAdminCanConnectDriverToVehicle(){
         MapDriverToVehicleRequest request = new MapDriverToVehicleRequest();
-        request.setPlateNumber("OSU54-35");
-        request.setDriverId(1L);
+        request.setVehicleId(4L);
+        request.setDriverId(4L);
         MapDriverToVehicleResponse response = adminService.connectVehicleToDriver(request);
         assertThat(response.getMessage()).isEqualTo("Driver connected to vehicle successfully");
     }

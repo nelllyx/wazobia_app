@@ -9,5 +9,5 @@ public class AddVehicleRequest {
     private String plateNumber;
     private String make;
     private String model;
-    private int numberOfSeats;
+    private int numberOfSeats = 0;
 }

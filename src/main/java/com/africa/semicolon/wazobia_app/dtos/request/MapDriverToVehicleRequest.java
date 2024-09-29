@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 public class MapDriverToVehicleRequest {
     private Long driverId;
-    private String plateNumber;
+    private Long vehicleId;
 }

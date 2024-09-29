@@ -1,22 +1,24 @@
 package com.africa.semicolon.wazobia_app.web;
 import com.africa.semicolon.wazobia_app.Services.PassengerService;
-<<<<<<< HEAD
-import com.africa.semicolon.wazobia_app.data.model.Passenger;
-=======
 
->>>>>>> 119def295519f485f24431dc63559987402a1547
+import com.africa.semicolon.wazobia_app.data.model.Passenger;
+
+import com.africa.semicolon.wazobia_app.dtos.request.LoginPassengerRequest;
 import com.africa.semicolon.wazobia_app.dtos.request.RegistrationRequest;
+import com.africa.semicolon.wazobia_app.dtos.response.ApiResponse;
+import com.africa.semicolon.wazobia_app.dtos.response.LoginPassengerResponse;
 import com.africa.semicolon.wazobia_app.dtos.response.RegistrationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/passenger")
+@CrossOrigin(origins = "*")
 public class PassengerController {
     private final PassengerService passengerService;
 
@@ -24,9 +26,20 @@ public class PassengerController {
     public ResponseEntity<?> userRegistration(@RequestBody RegistrationRequest request) {
         try{
             RegistrationResponse response = passengerService.addPassenger(request);
-            return ResponseEntity.ok(response);
-        }catch (Exception message){
-            return ResponseEntity.badRequest().body(message);
+            return new ResponseEntity<>(new ApiResponse(true,response), CREATED);
+        }catch (RuntimeException exception){
+            return new ResponseEntity<>(new ApiResponse(false,exception.getMessage()), BAD_REQUEST);
+
+        }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> userRegistration(@RequestBody LoginPassengerRequest request){
+        try{
+            LoginPassengerResponse response = passengerService.loginPassenger(request);
+            return new ResponseEntity<>(new ApiResponse(true,response), CREATED);
+        }catch (RuntimeException exception){
+            return new ResponseEntity<>(new ApiResponse(false,exception.getMessage()), BAD_REQUEST);
         }
     }
 

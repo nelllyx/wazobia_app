@@ -1,12 +1,25 @@
 package com.africa.semicolon.wazobia_app.utils;
 
 import com.africa.semicolon.wazobia_app.data.model.*;
+import com.africa.semicolon.wazobia_app.data.repository.VehiclesRepository;
 import com.africa.semicolon.wazobia_app.dtos.request.AddDriverRequest;
 import com.africa.semicolon.wazobia_app.dtos.request.AddVehicleRequest;
 import com.africa.semicolon.wazobia_app.dtos.request.BookARideRequest;
 import com.africa.semicolon.wazobia_app.dtos.request.RegistrationRequest;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalTime;
+
+import static com.africa.semicolon.wazobia_app.utils.SimpleHash.decrypt;
+
 
 public class Mapper {
+
+
+
     public static Passenger mapPassenger(RegistrationRequest request) {
         Passenger passenger = new Passenger();
         passenger.setFirstName(request.getFirstName());
@@ -22,16 +35,11 @@ public class Mapper {
   
     public static Routes mapRoutes(BookARideRequest request) {
         Routes route = new Routes();
-<<<<<<< HEAD
-        route.setDeparture(request.getDepatureAddress());
-        route.setDestination(request.getDestinationAdress());
-        route.setDepartureTime(request.getDepatureTime());
-=======
+
         route.setDeparture(request.getDepartureAddress());
         route.setDestination(request.getDestinationAddress());
         route.setDepartureTime(request.getDepartureTime());
->>>>>>> 119def295519f485f24431dc63559987402a1547
-        route.setPassengerId(request.getPassengerId());
+        route.setPassengerId(decrypt(request.getPassengerId()));
         route.setDepartureDate(request.getDepartureDate());
         return route;
     }
@@ -51,10 +59,31 @@ public class Mapper {
         Vehicles vehicle = new Vehicles();
         vehicle.setMake(request.getMake());
         vehicle.setModel(request.getModel());
-        vehicle.setNumberOfSits(request.getNumberOfSeats());
+        vehicle.setNumberOfSeat(request.getNumberOfSeats());
         vehicle.setPlateNumber(request.getPlateNumber());
         return vehicle;
     }
+
+    public static Trip mapTrip(Routes route, VehiclesRepository repository){
+        Long vehicleId = 1L;
+        if(route.getDepartureTime().equals( LocalTime.of(6, 30))) vehicleId = 1L;
+        if(route.getDepartureTime().equals( LocalTime.of(10, 30))) vehicleId = 2L;
+        if(route.getDepartureTime().equals( LocalTime.of(20, 30))) vehicleId = 3L;
+        if(route.getDepartureTime().equals( LocalTime.of(22, 30))) vehicleId = 4L;
+//        LocalTime  arrivalTime = LocalTime.of(22, 30);
+        Trip trip = new Trip();
+        trip.setRouteId(route.getRouteId());
+        trip.setDepartureTime(route.getDepartureTime());
+        trip.setVehiclesId(vehicleId);
+        Vehicles vehicle = repository.findVehicleById(vehicleId);
+        trip.setDriverId(vehicle.getDriverId());
+        return trip;
+
+    }
+
+
+
+
 
 
 }

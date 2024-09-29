@@ -1,7 +1,6 @@
 package com.africa.semicolon.wazobia_app.Services;
 
 import com.africa.semicolon.wazobia_app.data.model.Admin;
-<<<<<<< HEAD:src/main/java/com/africa/semicolon/wazobia_app/Services/AdminServiceImplementation.java
 import com.africa.semicolon.wazobia_app.data.model.Driver;
 import com.africa.semicolon.wazobia_app.data.model.Vehicles;
 import com.africa.semicolon.wazobia_app.data.repository.AdminRepository;
@@ -9,24 +8,21 @@ import com.africa.semicolon.wazobia_app.data.repository.DriverRepository;
 import com.africa.semicolon.wazobia_app.data.repository.VehiclesRepository;
 import com.africa.semicolon.wazobia_app.dtos.request.*;
 import com.africa.semicolon.wazobia_app.dtos.response.*;
+import com.africa.semicolon.wazobia_app.exceptions.DriverDoesNotExists;
 import com.africa.semicolon.wazobia_app.exceptions.VehicleExistsException;
 import com.africa.semicolon.wazobia_app.exceptions.EmailExistsException;
 import com.africa.semicolon.wazobia_app.exceptions.WrongEmailFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
-=======
-import com.africa.semicolon.wazobia_app.data.model.Vehicles;
-import com.africa.semicolon.wazobia_app.data.repository.AdminRepository;
-import com.africa.semicolon.wazobia_app.data.repository.VehiclesRepository;
 import com.africa.semicolon.wazobia_app.dtos.request.LoginAdminRequest;
 import com.africa.semicolon.wazobia_app.dtos.request.RegisterAdminRequest;
 import com.africa.semicolon.wazobia_app.dtos.response.AdminRegisterResponse;
 import com.africa.semicolon.wazobia_app.dtos.response.LoginAdminResponse;
-import com.africa.semicolon.wazobia_app.exceptions.WazobiaException;
 import lombok.RequiredArgsConstructor;
->>>>>>> 119def295519f485f24431dc63559987402a1547:src/main/java/com/africa/semicolon/wazobia_app/Services/AdminServiceImpl.java
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 import static com.africa.semicolon.wazobia_app.utils.Mapper.mapDriver;
 import static com.africa.semicolon.wazobia_app.utils.Mapper.mapVehicle;
@@ -34,16 +30,12 @@ import static com.africa.semicolon.wazobia_app.utils.Mapper.mapVehicle;
 @Service
 @RequiredArgsConstructor
 
-<<<<<<< HEAD:src/main/java/com/africa/semicolon/wazobia_app/Services/AdminServiceImplementation.java
-    @Autowired
-    private  DriverRepository driverRepository;
-    @Autowired
-    private VehiclesRepository vehiclesRepository;
-=======
+
 public class AdminServiceImpl implements AdminService {
 
     private final AdminRepository adminRepository;
->>>>>>> 119def295519f485f24431dc63559987402a1547:src/main/java/com/africa/semicolon/wazobia_app/Services/AdminServiceImpl.java
+    private final DriverRepository driverRepository;
+    private final VehiclesRepository vehiclesRepository;
 
 
     @Override
@@ -97,7 +89,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public AddVehicleResponse addVehicle(AddVehicleRequest request) {
-        validateVehiclePlateNumber();
+   validateVehiclePlateNumber(request);
         Vehicles vehicle = mapVehicle(request);
         vehiclesRepository.save(vehicle);
         AddVehicleResponse response = new AddVehicleResponse();
@@ -107,36 +99,21 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public MapDriverToVehicleResponse connectVehicleToDriver(MapDriverToVehicleRequest request) {
-        List<Driver> drivers = driverRepository.findAll();
-        Driver driver1 = null;
-        Vehicles vehicle1 = null;
-        for(Driver driver : drivers) {
-            if (driver.getId().equals(request.getDriverId())){
-                driver1 = driver;
-            }
-        }
-
-
-        List<Vehicles> vehicles = vehiclesRepository.findAll();
-        for(Vehicles vehicle : vehicles) {
-            if(vehicle.getPlateNumber().equals(request.getPlateNumber())){
-                vehicle1 = vehicle;
-            }else throw new VehicleExistsException("Vehicle does not exists");
-        }
-        driver1.setVehicleId(vehicle1.getId());
-        driverRepository.save(driver1);
-        vehicle1.setDriverId(driver1.getId());
-        vehiclesRepository.save(vehicle1);
-
+        Driver drivers = driverRepository.findDriverById(request.getDriverId());
+        Vehicles vehicle = vehiclesRepository.findVehicleById(request.getVehicleId());
+        drivers.setVehicleId(request.getVehicleId());
+        vehicle.setDriverId(request.getDriverId());
+        driverRepository.save(drivers);
+        vehiclesRepository.save(vehicle);
         MapDriverToVehicleResponse response = new MapDriverToVehicleResponse();
         response.setMessage("Driver connected to vehicle successfully");
         return response;
     }
 
-    private void validateVehiclePlateNumber() {
+    private void validateVehiclePlateNumber(AddVehicleRequest request) {
         List<Vehicles> vehicles = vehiclesRepository.findAll();
         for(Vehicles vehicle : vehicles) {
-            if(vehicle.getPlateNumber().equals(vehicle.getPlateNumber())) {
+            if(vehicle.getPlateNumber().equals(request.getPlateNumber())) {
                 throw new VehicleExistsException("Vehicle already exists");
             }
         }
