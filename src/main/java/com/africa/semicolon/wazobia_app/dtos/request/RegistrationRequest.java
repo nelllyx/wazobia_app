@@ -14,5 +14,4 @@ public class RegistrationRequest {
     private String password;
     private String nextOfKinName;
     private String nextOfKinPhone;
-   // private Long userId;
 }

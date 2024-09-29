@@ -1,7 +1,6 @@
 package com.africa.semicolon.wazobia_app.Services;
 
 import com.africa.semicolon.wazobia_app.data.model.Admin;
-<<<<<<< HEAD:src/main/java/com/africa/semicolon/wazobia_app/Services/AdminServiceImplementation.java
 import com.africa.semicolon.wazobia_app.data.model.Driver;
 import com.africa.semicolon.wazobia_app.data.model.Vehicles;
 import com.africa.semicolon.wazobia_app.data.repository.AdminRepository;
@@ -13,17 +12,12 @@ import com.africa.semicolon.wazobia_app.exceptions.VehicleExistsException;
 import com.africa.semicolon.wazobia_app.exceptions.EmailExistsException;
 import com.africa.semicolon.wazobia_app.exceptions.WrongEmailFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
-=======
-import com.africa.semicolon.wazobia_app.data.model.Vehicles;
-import com.africa.semicolon.wazobia_app.data.repository.AdminRepository;
-import com.africa.semicolon.wazobia_app.data.repository.VehiclesRepository;
 import com.africa.semicolon.wazobia_app.dtos.request.LoginAdminRequest;
 import com.africa.semicolon.wazobia_app.dtos.request.RegisterAdminRequest;
 import com.africa.semicolon.wazobia_app.dtos.response.AdminRegisterResponse;
 import com.africa.semicolon.wazobia_app.dtos.response.LoginAdminResponse;
-import com.africa.semicolon.wazobia_app.exceptions.WazobiaException;
+
 import lombok.RequiredArgsConstructor;
->>>>>>> 119def295519f485f24431dc63559987402a1547:src/main/java/com/africa/semicolon/wazobia_app/Services/AdminServiceImpl.java
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,16 +28,11 @@ import static com.africa.semicolon.wazobia_app.utils.Mapper.mapVehicle;
 @Service
 @RequiredArgsConstructor
 
-<<<<<<< HEAD:src/main/java/com/africa/semicolon/wazobia_app/Services/AdminServiceImplementation.java
-    @Autowired
-    private  DriverRepository driverRepository;
-    @Autowired
-    private VehiclesRepository vehiclesRepository;
-=======
 public class AdminServiceImpl implements AdminService {
 
     private final AdminRepository adminRepository;
->>>>>>> 119def295519f485f24431dc63559987402a1547:src/main/java/com/africa/semicolon/wazobia_app/Services/AdminServiceImpl.java
+    private final DriverRepository driverRepository;
+    private final VehiclesRepository vehiclesRepository;
 
 
     @Override
