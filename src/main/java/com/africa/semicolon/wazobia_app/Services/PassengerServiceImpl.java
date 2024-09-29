@@ -6,17 +6,17 @@ import com.africa.semicolon.wazobia_app.dtos.request.LoginPassengerRequest;
 import com.africa.semicolon.wazobia_app.dtos.request.RegistrationRequest;
 import com.africa.semicolon.wazobia_app.dtos.response.LoginResponse;
 import com.africa.semicolon.wazobia_app.dtos.response.RegistrationResponse;
-<<<<<<< HEAD
+
 import com.africa.semicolon.wazobia_app.exceptions.EmailExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-=======
+
 import com.africa.semicolon.wazobia_app.exceptions.WazobiaException;
 import lombok.RequiredArgsConstructor;
->>>>>>> 119def295519f485f24431dc63559987402a1547
+
 import org.springframework.stereotype.Service;
 
 import static com.africa.semicolon.wazobia_app.utils.Mapper.mapPassenger;
@@ -24,25 +24,16 @@ import static com.africa.semicolon.wazobia_app.utils.Mapper.mapPassenger;
 @Service
 @RequiredArgsConstructor
 public class PassengerServiceImpl implements PassengerService {
-<<<<<<< HEAD
 
-    @Autowired
-    private JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
 
-=======
->>>>>>> 119def295519f485f24431dc63559987402a1547
     private final PassengerRepository passengerRepository;
     @Override
     public RegistrationResponse addPassenger(RegistrationRequest register) {
         Passenger request = mapPassenger(register);
-<<<<<<< HEAD
-        if(passengerRepository.existsByFirstNameAndLastName(request.getFirstName(), request.getLastName())) {
-            throw new EmailExistsException("User already exists");
-=======
 
         if(passengerRepository.existsByEmail(request.getEmail())|| passengerRepository.existsByPhone(request.getPhone())) {
             throw new WazobiaException("User already exists");
->>>>>>> 119def295519f485f24431dc63559987402a1547
         }else {
             passengerRepository.save(request);
             sendEmail(request.getEmail(), request.getFirstName());
@@ -52,7 +43,7 @@ public class PassengerServiceImpl implements PassengerService {
         return response;
     }
 
-<<<<<<< HEAD
+
     @Value("$(Wazobia)")
     private String fromEmailId;
     public void sendEmail(String userEmail, String name) {
@@ -80,9 +71,9 @@ public class PassengerServiceImpl implements PassengerService {
 
 
     }
-=======
 
 
 
-}
->>>>>>> 119def295519f485f24431dc63559987402a1547
+
+
+

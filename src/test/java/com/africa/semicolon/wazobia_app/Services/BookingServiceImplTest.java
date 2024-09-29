@@ -28,11 +28,6 @@ class BookingServiceImplTest {
 
 
 
-//    public  PassengerRepository passengerRepository;
-//
-//    public  RoutesRepository routesRepository;
-//
-//    public  TripRepository tripRepository;
 
 //    @BeforeEach
 //   void setUp() {
@@ -55,9 +50,9 @@ class BookingServiceImplTest {
     @Test
     public void testThatAUserCanBookATrip(){
         RegistrationRequest registrationRequest = new RegistrationRequest();
-        registrationRequest.setFirstName("freddie");
+        registrationRequest.setFirstName("nelson");
         registrationRequest.setLastName("akewes");
-        registrationRequest.setEmail("fareedtijani2810@gmail.com");
+        registrationRequest.setEmail("nelsonakewe0@gmail.com");
         registrationRequest.setPhone("08084563212225");
         registrationRequest.setPassword("freddieddhhhh");
         registrationRequest.setNextOfKinName("buharieegggggg");
@@ -67,9 +62,9 @@ class BookingServiceImplTest {
         BookARideRequest request = new BookARideRequest();
         request.setPassengerId(2L);
 
-        request.setDestinationAdress("oyo, ibadan");
-        request.setDepatureAddress("lagos yaba");
-        request.setDepatureTime(LocalTime.of(6,0));
+        request.setDestinationAddress("oyo, ibadan");
+        request.setDepartureAddress("lagos yaba");
+        request.setDepartureTime(LocalTime.of(6,0));
         request.setDepartureDate(LocalDate.of(2024,10,27));
         BookARideResponse response1 = bookingService.bookARide(request);
         assertThat(response1).isNotNull();

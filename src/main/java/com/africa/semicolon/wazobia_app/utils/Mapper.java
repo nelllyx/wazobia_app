@@ -22,15 +22,10 @@ public class Mapper {
   
     public static Routes mapRoutes(BookARideRequest request) {
         Routes route = new Routes();
-<<<<<<< HEAD
-        route.setDeparture(request.getDepatureAddress());
-        route.setDestination(request.getDestinationAdress());
-        route.setDepartureTime(request.getDepatureTime());
-=======
-        route.setDeparture(request.getDepartureAddress());
         route.setDestination(request.getDestinationAddress());
         route.setDepartureTime(request.getDepartureTime());
->>>>>>> 119def295519f485f24431dc63559987402a1547
+        route.setDeparture(request.getDepartureAddress());
+        route.setDestination(request.getDestinationAddress());
         route.setPassengerId(request.getPassengerId());
         route.setDepartureDate(request.getDepartureDate());
         return route;
@@ -51,7 +46,7 @@ public class Mapper {
         Vehicles vehicle = new Vehicles();
         vehicle.setMake(request.getMake());
         vehicle.setModel(request.getModel());
-        vehicle.setNumberOfSits(request.getNumberOfSeats());
+        vehicle.setNumberOfSeat(request.getNumberOfSeats());
         vehicle.setPlateNumber(request.getPlateNumber());
         return vehicle;
     }
