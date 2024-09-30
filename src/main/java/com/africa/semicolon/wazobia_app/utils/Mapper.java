@@ -1,12 +1,25 @@
 package com.africa.semicolon.wazobia_app.utils;
 
 import com.africa.semicolon.wazobia_app.data.model.*;
+import com.africa.semicolon.wazobia_app.data.repository.VehiclesRepository;
 import com.africa.semicolon.wazobia_app.dtos.request.AddDriverRequest;
 import com.africa.semicolon.wazobia_app.dtos.request.AddVehicleRequest;
 import com.africa.semicolon.wazobia_app.dtos.request.BookARideRequest;
 import com.africa.semicolon.wazobia_app.dtos.request.RegistrationRequest;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalTime;
+
+import static com.africa.semicolon.wazobia_app.utils.SimpleHash.decrypt;
+
 
 public class Mapper {
+
+
+
     public static Passenger mapPassenger(RegistrationRequest request) {
         Passenger passenger = new Passenger();
         passenger.setFirstName(request.getFirstName());
@@ -22,11 +35,13 @@ public class Mapper {
   
     public static Routes mapRoutes(BookARideRequest request) {
         Routes route = new Routes();
-        route.setDestination(request.getDestinationAddress());
-        route.setDepartureTime(request.getDepartureTime());
+
+
         route.setDeparture(request.getDepartureAddress());
         route.setDestination(request.getDestinationAddress());
-        route.setPassengerId(request.getPassengerId());
+        route.setDepartureTime(request.getDepartureTime());
+        route.setPassengerId(decrypt(request.getPassengerId()));
+
         route.setDepartureDate(request.getDepartureDate());
         return route;
     }
@@ -50,6 +65,27 @@ public class Mapper {
         vehicle.setPlateNumber(request.getPlateNumber());
         return vehicle;
     }
+
+    public static Trip mapTrip(Routes route, VehiclesRepository repository){
+        Long vehicleId = 1L;
+        if(route.getDepartureTime().equals( LocalTime.of(6, 30))) vehicleId = 1L;
+        if(route.getDepartureTime().equals( LocalTime.of(10, 30))) vehicleId = 2L;
+        if(route.getDepartureTime().equals( LocalTime.of(20, 30))) vehicleId = 3L;
+        if(route.getDepartureTime().equals( LocalTime.of(22, 30))) vehicleId = 4L;
+//        LocalTime  arrivalTime = LocalTime.of(22, 30);
+        Trip trip = new Trip();
+        trip.setRouteId(route.getRouteId());
+        trip.setDepartureTime(route.getDepartureTime());
+        trip.setVehiclesId(vehicleId);
+        Vehicles vehicle = repository.findVehicleById(vehicleId);
+        trip.setDriverId(vehicle.getDriverId());
+        return trip;
+
+    }
+
+
+
+
 
 
 }

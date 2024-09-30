@@ -12,7 +12,7 @@ import java.time.LocalTime;
 @Setter
 
 public class BookARideRequest {
-    private Long passengerId;
+    private String passengerId;
     private String destinationAddress;
     private String departureAddress;
     private LocalTime departureTime;

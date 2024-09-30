@@ -1,16 +1,18 @@
 package com.africa.semicolon.wazobia_app.data.model;
 
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Entity
+
 @Getter
 @Setter
+
+@Entity
+
 
 
 @Table(name = "routes")

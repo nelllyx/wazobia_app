@@ -21,5 +21,5 @@ public class Trip {
     private Long RouteId;
     private Long VehiclesId;
     private LocalTime departureTime;
-    private String driverId;
+    private Long driverId;
 }

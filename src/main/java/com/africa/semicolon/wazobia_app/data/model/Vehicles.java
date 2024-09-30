@@ -7,6 +7,8 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@Table(name = "vehicles")
+
 public class Vehicles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,6 +17,6 @@ public class Vehicles {
     private String plateNumber;
     private String make;
     private String model;
-    private int numberOfSeat;
+    private int numberOfSeat = 0;
 
 }
