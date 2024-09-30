@@ -3,9 +3,11 @@ import com.africa.semicolon.wazobia_app.Services.PassengerService;
 
 import com.africa.semicolon.wazobia_app.data.model.Passenger;
 
+import com.africa.semicolon.wazobia_app.dtos.request.BookARideRequest;
 import com.africa.semicolon.wazobia_app.dtos.request.LoginPassengerRequest;
 import com.africa.semicolon.wazobia_app.dtos.request.RegistrationRequest;
 import com.africa.semicolon.wazobia_app.dtos.response.ApiResponse;
+import com.africa.semicolon.wazobia_app.dtos.response.BookARideResponse;
 import com.africa.semicolon.wazobia_app.dtos.response.LoginPassengerResponse;
 import com.africa.semicolon.wazobia_app.dtos.response.RegistrationResponse;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +43,17 @@ public class PassengerController {
         }catch (RuntimeException exception){
             return new ResponseEntity<>(new ApiResponse(false,exception.getMessage()), BAD_REQUEST);
         }
+    }
+
+    @PostMapping("/booktrip")
+    public ResponseEntity<?> bookARide(@RequestBody BookARideRequest request){
+        try{
+            BookARideResponse response = passengerService.bookARide(request);
+            return new ResponseEntity<>(new ApiResponse(true,response), CREATED);
+        }catch (RuntimeException exception){
+            return new ResponseEntity<>(new ApiResponse(false,exception.getMessage()), BAD_REQUEST);
+        }
+
     }
 
 }
