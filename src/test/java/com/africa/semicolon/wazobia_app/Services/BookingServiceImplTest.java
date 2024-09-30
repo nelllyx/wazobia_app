@@ -29,12 +29,14 @@ class BookingServiceImplTest {
 
 
 
+
     @Autowired
     public  PassengerRepository passengerRepository;
     @Autowired
     public  RoutesRepository routesRepository;
     @Autowired
     public  TripRepository tripRepository;
+
 
     @BeforeEach
    void setUp() {
@@ -57,10 +59,12 @@ class BookingServiceImplTest {
     @Test
     public void testThatAUserCanBookATrip(){
         RegistrationRequest registrationRequest = new RegistrationRequest();
-        registrationRequest.setFirstName("freddie");
+        registrationRequest.setFirstName("nelson");
         registrationRequest.setLastName("akewes");
+
         registrationRequest.setEmail("freddieteejay0@gmail.com");
         registrationRequest.setPhone("08084");
+
         registrationRequest.setPassword("freddieddhhhh");
         registrationRequest.setNextOfKinName("buharieegggggg");
         registrationRequest.setNextOfKinPhone("090993362622");

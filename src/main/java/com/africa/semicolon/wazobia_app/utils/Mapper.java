@@ -36,10 +36,12 @@ public class Mapper {
     public static Routes mapRoutes(BookARideRequest request) {
         Routes route = new Routes();
 
+
         route.setDeparture(request.getDepartureAddress());
         route.setDestination(request.getDestinationAddress());
         route.setDepartureTime(request.getDepartureTime());
         route.setPassengerId(decrypt(request.getPassengerId()));
+
         route.setDepartureDate(request.getDepartureDate());
         return route;
     }

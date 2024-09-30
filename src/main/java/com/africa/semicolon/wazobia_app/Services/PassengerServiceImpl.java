@@ -8,11 +8,15 @@ import com.africa.semicolon.wazobia_app.dtos.request.RegistrationRequest;
 import com.africa.semicolon.wazobia_app.dtos.response.BookARideResponse;
 import com.africa.semicolon.wazobia_app.dtos.response.LoginPassengerResponse;
 import com.africa.semicolon.wazobia_app.dtos.response.RegistrationResponse;
+
 import com.africa.semicolon.wazobia_app.exceptions.EmailExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+
+import com.africa.semicolon.wazobia_app.exceptions.WazobiaException;
+import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 
@@ -24,8 +28,7 @@ import static com.africa.semicolon.wazobia_app.utils.SimpleHash.hash;
 @Service
 public class PassengerServiceImpl implements PassengerService {
 
-    @Autowired
-    private JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
 
     @Autowired
     private  PassengerRepository passengerRepository;
@@ -72,6 +75,7 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
 
+
     @Value("$(Wazobia)")
     private String fromEmailId;
 
@@ -100,5 +104,14 @@ public class PassengerServiceImpl implements PassengerService {
 
     }
 
+
 }
+
+
+    }
+
+
+
+
+
 
