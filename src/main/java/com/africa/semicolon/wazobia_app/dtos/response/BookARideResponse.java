@@ -9,6 +9,7 @@ import lombok.Setter;
 public class BookARideResponse {
 
     private String bookingInfo;
+    private String message = bookingInfo;
     private String seatNumber;
     private String emailInfo;
     private String price;

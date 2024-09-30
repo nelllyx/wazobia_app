@@ -8,11 +8,15 @@ import com.africa.semicolon.wazobia_app.dtos.request.RegistrationRequest;
 import com.africa.semicolon.wazobia_app.dtos.response.BookARideResponse;
 import com.africa.semicolon.wazobia_app.dtos.response.LoginPassengerResponse;
 import com.africa.semicolon.wazobia_app.dtos.response.RegistrationResponse;
+
 import com.africa.semicolon.wazobia_app.exceptions.EmailExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+
+import com.africa.semicolon.wazobia_app.exceptions.WazobiaException;
+import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 
@@ -23,7 +27,6 @@ import static com.africa.semicolon.wazobia_app.utils.SimpleHash.hash;
 
 @Service
 public class PassengerServiceImpl implements PassengerService {
-
     @Autowired
     private JavaMailSender mailSender;
 
@@ -50,26 +53,28 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     public LoginPassengerResponse loginPassenger(LoginPassengerRequest request) {
-        List<Passenger> passengers = passengerRepository.findAll();
-        Long passengerId = 0l;
-        LoginPassengerResponse response1 = null;
-        for (Passenger passenger : passengers) {
-            if (passenger.getEmail().equals(request.getEmail()) && passenger.getPassword().equals(request.getPassword())) {
-                LoginPassengerResponse response = new LoginPassengerResponse();
-                response.setMessage("Login successful");
-                String token = hash(passengerId);
-                response.setToken(token);
-                response1 = response;
-            }
+        Passenger passenger = passengerRepository.findPassengerByEmail(request.getEmail());
+        System.out.println(passenger.getEmail());
+        System.out.println(passenger.getPassword());
+        if (passenger == null) {
+            throw new WazobiaException("Invalid email or password");
         }
+        if (!request.getPassword().equals(passenger.getPassword())) {
+            throw new WazobiaException("Invalid email or password");
+        }
+        LoginPassengerResponse response = new LoginPassengerResponse();
+        response.setMessage("Login successful");
+        String token = hash(passenger.getId());
+        response.setToken(token);
 
-        return response1;
+        return response;
     }
 
     @Override
     public BookARideResponse bookARide(BookARideRequest request2) {
         return bookingServiceImpl.bookARide(request2);
     }
+
 
 
     @Value("$(Wazobia)")
@@ -88,7 +93,7 @@ public class PassengerServiceImpl implements PassengerService {
                 Welcome to Wazobia! We’re thrilled to have you join our transportation management system. You’re now set up with your Gmail account %s.
 
                 Click here to log in to your account:
-                -> Log in to your account: [Login Link]
+                -> Log in to your account: http://localhost:3000/login
 
                 Our goal is to help you manage transportation efficiently. If you have any questions, contact us anytime at wazobiateam2024@gmail.com.
 
@@ -100,5 +105,14 @@ public class PassengerServiceImpl implements PassengerService {
 
     }
 
+
 }
+
+
+
+
+
+
+
+
 

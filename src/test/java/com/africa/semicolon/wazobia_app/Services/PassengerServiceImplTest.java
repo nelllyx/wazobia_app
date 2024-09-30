@@ -56,7 +56,7 @@ class PassengerServiceImplTest {
         RegistrationRequest request = new RegistrationRequest();
         request.setFirstName("firstName");
         request.setLastName("lastName");
-        request.setEmail("fareedtijani2810@gmail.com");
+        request.setEmail("fareedtijani@gmail.com");
         request.setPassword("password");
         request.setGender("male");
         request.setPhone("090999");
@@ -100,12 +100,13 @@ class PassengerServiceImplTest {
     @Test
     public void test_thatPassengerCanLogin(){
         RegistrationRequest request = createPassenger();
+        RegistrationResponse response2 = passengerService.addPassenger(request);
         LoginPassengerRequest request1 = new LoginPassengerRequest();
-        request.setEmail("fareedtijani2810gmail.com");
+        request1.setEmail("fareedtijani@gmail.com");
         request1.setPassword("password");
         LoginPassengerResponse response = passengerService.loginPassenger(request1);
         assertThat(response).isNotNull();
-        assertThat(response.getToken()).isEqualTo("rfbaaaaaaa");
+        assertThat(response.getToken()).isEqualTo("rfwWqfbaaa");
 
     }
 
@@ -114,20 +115,21 @@ class PassengerServiceImplTest {
         RegistrationRequest request = createPassenger();
         RegistrationResponse response2 = passengerService.addPassenger(request);
         LoginPassengerRequest request1 = new LoginPassengerRequest();
-        request.setEmail("fareedtijani2810gmail.com");
+        request1.setEmail("fareedtijani@gmail.com");
         request1.setPassword("password");
         LoginPassengerResponse response = passengerService.loginPassenger(request1);
         BookARideRequest request2 = new BookARideRequest();
-        request2.setPassengerId(response.getToken());
-        request2.setDepartureTime(LocalTime.of(6, 30));
+        request2.setPassengerId("WqAYqfbaaa");
+        System.out.println(response.getToken());
+        request2.setDepartureTime("06:30");
         request2.setDepartureAddress("sabo yaba");
-        request2.setDepartureDate(LocalDate.of(2024,9,20));
+        request2.setDepartureDate("09-10-2024");
         request2.setDestinationAddress("lekki sama");
         BookARideResponse response1 = passengerService.bookARide(request2);
         assertThat(response1).isNotNull();
         String info = """
         Booking successful!
-        Your trip from sabo yaba to lekki sama has been confirmed for 2024-09-20 at 06:30
+        Your trip from sabo yaba to lekki sama has been confirmed for 2024-10-09 at 06:30
         Head to the Payment Page to Make Payment And Get More
         Infomation About your trip
         """;

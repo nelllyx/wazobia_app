@@ -15,7 +15,7 @@ public class BookARideRequest {
     private String passengerId;
     private String destinationAddress;
     private String departureAddress;
-    private LocalTime departureTime;
-    private LocalDate departureDate;
+    private String departureTime;
+    private String departureDate;
 
 }

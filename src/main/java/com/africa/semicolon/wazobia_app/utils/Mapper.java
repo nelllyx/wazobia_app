@@ -6,12 +6,12 @@ import com.africa.semicolon.wazobia_app.dtos.request.AddDriverRequest;
 import com.africa.semicolon.wazobia_app.dtos.request.AddVehicleRequest;
 import com.africa.semicolon.wazobia_app.dtos.request.BookARideRequest;
 import com.africa.semicolon.wazobia_app.dtos.request.RegistrationRequest;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static com.africa.semicolon.wazobia_app.utils.SimpleHash.decrypt;
 
@@ -35,12 +35,18 @@ public class Mapper {
   
     public static Routes mapRoutes(BookARideRequest request) {
         Routes route = new Routes();
-
         route.setDeparture(request.getDepartureAddress());
         route.setDestination(request.getDestinationAddress());
-        route.setDepartureTime(request.getDepartureTime());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime localTime = LocalTime.parse(request.getDepartureTime(), formatter);
+        ZonedDateTime zonedDateTime = localTime.atDate(LocalDate.now()) // Add current date
+                .atZone(ZoneId.systemDefault());
+        route.setDepartureTime(zonedDateTime.toLocalTime());
+        System.out.println(request.getPassengerId());
         route.setPassengerId(decrypt(request.getPassengerId()));
-        route.setDepartureDate(request.getDepartureDate());
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-dd-MM");
+        LocalDate localDate = LocalDate.parse(request.getDepartureDate(), formatter1);
+        route.setDepartureDate(localDate);
         return route;
     }
 

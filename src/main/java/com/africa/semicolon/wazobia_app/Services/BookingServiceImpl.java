@@ -9,6 +9,7 @@ import com.africa.semicolon.wazobia_app.data.repository.TripRepository;
 import com.africa.semicolon.wazobia_app.data.repository.VehiclesRepository;
 import com.africa.semicolon.wazobia_app.dtos.request.BookARideRequest;
 import com.africa.semicolon.wazobia_app.dtos.response.BookARideResponse;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -18,13 +19,14 @@ import java.time.LocalTime;
 import static com.africa.semicolon.wazobia_app.utils.Mapper.mapRoutes;
 import static com.africa.semicolon.wazobia_app.utils.Mapper.mapTrip;
 
-@Service @RequiredArgsConstructor
 
+@Service
 
+@RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
 
     @Lazy
-    private final RoutesRepository routesRepository;
+   private final RoutesRepository routesRepository;
     @Lazy
     private final TripRepository tripRepository;
     private final BookingRepository bookingRepository;
@@ -35,6 +37,7 @@ public class BookingServiceImpl implements BookingService {
         Routes route = mapRoutes(request);
         routesRepository.save(route);
         Trip trip = mapTrip(route, vehiclesRepository);
+
         tripRepository.save(trip);
         String date = route.getDepartureDate().toString();
         String time = route.getDepartureTime().toString();
@@ -49,7 +52,10 @@ public class BookingServiceImpl implements BookingService {
                 Infomation About your trip
                 """,startingPoint,endingPoint,date,time);
         response.setBookingInfo(bookingInfo);
+
 //        bookingRepository.save()
+
+
 
 
 

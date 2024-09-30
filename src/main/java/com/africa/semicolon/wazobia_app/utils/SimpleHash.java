@@ -18,7 +18,7 @@ public class SimpleHash {
             hashValue /= 3;
         }
 
-        lookupTable.put(hashed, id); // store hashed value and original ID
+        lookupTable.put(hashed, id);
         return hashed;
     }
 
@@ -27,7 +27,7 @@ public class SimpleHash {
     }
 
     public static void main(String[] args) {
-        long id = 40L;
+        long id = 25L;
         String hashed = hash(id);
         System.out.println("Hashed ID: " + hashed);
 
